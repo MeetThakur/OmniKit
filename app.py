@@ -5,11 +5,15 @@ import requests
 from tkinter import filedialog as fd
 from tkinter import messagebox
 import math
+import calendar
+from datetime import date
 
 
 meaning = "Search something"
 
 
+
+#dictionary
 def findmeaning(text):
     try:
         req1 = requests.get("https://www.google.com/search?q=define+"+text)
@@ -47,8 +51,6 @@ customtkinter.set_default_color_theme("green")
 
 
 
-
-
 Font = ("Comic Sans MS", 16)
 f = ("Comic Sans MS",19,"bold")
 def mean():
@@ -62,18 +64,33 @@ def mean():
 
 app = customtkinter.CTk()
 app.geometry("350x500")
-app.grid_rowconfigure(0, weight=1)  # configure grid system
+app.grid_rowconfigure(0, weight=1)
 app.grid_columnconfigure(0, weight=1)
+
+
+
+def switch_event():
+    if switch_var.get() == 'on':
+        customtkinter.set_appearance_mode("dark")
+    else:
+        customtkinter.set_appearance_mode("light")
+
+
+
+
+
+
 
 
 
 
 tabview = customtkinter.CTkTabview(master=app)
-tabview.grid(sticky="nsew",padx=10,pady=10)
+tabview.grid(sticky="nsew",padx=10,pady=15)
 t1 = tabview.add("Dictionary") 
 t2 = tabview.add("Canvas")
 t3 = tabview.add("NotePad")
 t4 = tabview.add("Calculator")
+t5 = tabview.add("Calendar")
 tabview.set("Dictionary")
 
 
@@ -103,6 +120,7 @@ meaningText.configure(font=f)
 
 
 
+#canvas
 fnt = ("comic sans",10,"bold")
 canvas = tkinter.Canvas(t2, width=500, height=500, bg="#2b2b2b")
 stroke = 2
@@ -180,6 +198,12 @@ canvas.pack(fill="both", expand="YES")
 
 
 
+
+
+#notepad
+textF = ("Comic Sans MS", 16)
+
+
 opfile = None
 def openfile():
     global filename,opfile
@@ -220,25 +244,46 @@ def save():
         messagebox.showerror("error", "Open a File first")
     
 
+def changeFont(choice):
+    global textF
+    textF = list(textF)
+    textF[1] = int(choice)
+    textF = tuple(textF)
+    NotepadEntry.configure(font=textF)
 
-NotepadEntry = customtkinter.CTkTextbox(t3,font=Font)
+
+
+NotepadEntry = customtkinter.CTkTextbox(t3,font=textF)
 NotepadEntry.place(x=0,y=50,relheight=1,relwidth=1)
+
 openButton = customtkinter.CTkButton(t3,height=30,width=30,text="Open",command=openfile)
 openButton.place(x=0,y=0)
+
 savebutton = customtkinter.CTkButton(t3,height=30,width=30,text="Save",command=save)
 savebutton.place(x=50,y=0)
+
 saveasbutton = customtkinter.CTkButton(t3,height=30,width=30,text="Save as",command=savefile)
 saveasbutton.place(x=100,y=0)
 
 
 
 
+defaultSize = customtkinter.StringVar(value="16")
+fontsize = customtkinter.CTkOptionMenu(t3,values=['10','12','14','16','18','20','22'],command=changeFont,variable=defaultSize,
+                                                width=30,height=32)
+fontsize.place(x=170,y=0)
 
 
 
 
 
 
+
+
+
+
+
+#calculator
 eq = ' '
 brack = 0
 def btnClick(btn):
@@ -406,5 +451,69 @@ cos.grid(row=7,column=4,padx=3,pady=3)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+#calender
+def disp():
+    cdisp.configure(state='normal')
+    mm = int(month.get())
+    yy = int(year.get())
+    clnd = calendar.month(yy, mm)
+    cdisp.delete('0.0','end')
+    cdisp.insert('0.0',clnd)
+    cdisp.configure(state='disabled')
+
+
+
+calfont = ("Lucida Console", 22,'bold')
+
+calendarFrame = customtkinter.CTkFrame(t5,height=300,width=300)
+calendarFrame.grid_rowconfigure(0, weight=1)
+calendarFrame.grid_columnconfigure(0, weight=1)
+calendarFrame.pack()
+
+
+month = customtkinter.CTkEntry(calendarFrame,height=10,width=100,placeholder_text='month',font=Font)
+month.grid(row=2,column=1,padx=20,pady=10)
+
+year = customtkinter.CTkEntry(calendarFrame,height=10,width=100,placeholder_text='year',font=Font)
+year.grid(row=2,column=2,padx=20,pady=10)
+
+findCalBtn = customtkinter.CTkButton(calendarFrame,height=30,width=100,text='Find',corner_radius=30,border_width=2,font=Font,command=disp)
+findCalBtn.grid(row=3,column=1,columnspan=2,pady=10)
+
+cdisp = customtkinter.CTkTextbox(calendarFrame,height=190,width=300,font=calfont,state='disabled',activate_scrollbars=False)
+cdisp.grid(row=4,column=1,columnspan=2,pady=20,padx=10)
+
+
+today = date.today()
+today = today.strftime("%d/%m/%Y")
+
+cdisp.configure(state='normal')
+y = str(today)[6:]
+m = str(today)[3:5]
+tclnd = calendar.month(int(y),int(m))
+cdisp.insert('0.0',tclnd)
+cdisp.configure(state='disabled')
+
+
+date = customtkinter.CTkLabel(calendarFrame,height=10,width=10,text='Today : '+str(today),font=f)
+date.grid(row=1,column=1,columnspan=2,pady=20)
+
+
+switch_var = customtkinter.StringVar(value="on")
+switch = customtkinter.CTkSwitch(app, text="Dark Mode", command=switch_event,variable=switch_var, onvalue="on", offvalue="off",height=3)
+switch.place(x=3,y=3)
 app.attributes('-topmost',True)
 app.mainloop()
