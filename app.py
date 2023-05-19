@@ -51,7 +51,7 @@ customtkinter.set_default_color_theme("green")
 
 
 
-Font = ("Comic Sans MS", 16)
+Font = ("Comic Sans MS", 18)
 f = ("Comic Sans MS",19,"bold")
 def mean():
     global meaning
@@ -64,6 +64,8 @@ def mean():
 
 app = customtkinter.CTk()
 app.geometry("350x500")
+app.iconbitmap(r'toolkit.ico')
+app.title("ToolKit")
 app.grid_rowconfigure(0, weight=1)
 app.grid_columnconfigure(0, weight=1)
 
@@ -269,9 +271,10 @@ saveasbutton.place(x=100,y=0)
 
 
 defaultSize = customtkinter.StringVar(value="16")
-fontsize = customtkinter.CTkOptionMenu(t3,values=['10','12','14','16','18','20','22'],command=changeFont,variable=defaultSize,
+fontsize = customtkinter.CTkOptionMenu(t3,values=['8','10','12','14','16','18','20','22','24','26','28','30'],command=changeFont,variable=defaultSize,
                                                 width=30,height=32)
 fontsize.place(x=170,y=0)
+
 
 
 
