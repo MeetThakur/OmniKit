@@ -22,7 +22,6 @@ Certainly! Here's a description for your 5-in-1 app that includes a calculator, 
 
 
 5. Calendar:📆
-   The calendar component of your app helps users manage their schedules and stay organized. It offers a visual representation of dates, months, and years, allowing users to add events. The calendar feature assists users in planning and organizing their lives effectively.
-
+   The calendar component  offers a visual representation of dates, months, and years.
 
 By combining these five essential tools into a single app, 5-in-1 app provides users with a versatile and efficient solution for everyday tasks, whether it's calculations, creative expression, language reference, note-taking, or managing schedules.
