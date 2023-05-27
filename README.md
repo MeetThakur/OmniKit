@@ -2,9 +2,6 @@
 
 5 Tools in one app:
 
-Certainly! Here's a description for your 5-in-1 app that includes a calculator, canvas, dictionary, notepad, and calendar:
-
-
 1. Calculator: 🔢
    The calculator feature of the app provides a versatile tool for performing mathematical calculations. Users can perform basic arithmetic operations like addition, subtraction, multiplication, and division. It also include advanced functions like trigonometry, logarithms,the calculator simplifies complex calculations on the go.
    
