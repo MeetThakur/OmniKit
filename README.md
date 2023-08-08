@@ -1,4 +1,4 @@
-# Toolkit
+# OmniKit
 
 5 Tools in one app:
 
